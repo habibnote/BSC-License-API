@@ -1,0 +1,13 @@
+.bsc-api-license-text{
+    background-color: #ddd;
+    padding: 10px;
+}
+.bsc-api-license-text label{
+    color: #222;
+    font-weight: bold;
+}
+.bsc-api-license-text span{
+    font-style: italic;
+    color: #5e5d5d;
+    padding: 5px 20px;
+}

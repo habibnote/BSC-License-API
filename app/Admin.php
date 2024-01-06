@@ -8,6 +8,7 @@ class Admin {
      * Class Constructor
      */
     public function __construct() {
+        add_action( 'wp_enqueue_scripts', [$this, 'admin_enqueue_scripts'] );
         add_action( 'rest_api_init', [$this, 'bsc_license_api_endpoint'] );
         add_action( 'woocommerce_new_order', [$this, 'save_license_data'], 10, 1 );
         add_action( 'woocommerce_account_dashboard', [$this, 'display_woocommerce_license_key'] );
@@ -19,7 +20,7 @@ class Admin {
     public function display_woocommerce_license_key() {
         $current_user_id = get_current_user_id();
 
-        printf( "<div><label>Your License Key<label>: <span> %s </span></div>", get_user_meta( $current_user_id, 'bsc_license_key', true ));
+        printf( "<div class='bsc-api-license-text'><label>Your License Key</label>: <span> %s </span></div>", get_user_meta( $current_user_id, 'bsc_license_key', true ));
     }
 
     /**
@@ -69,6 +70,13 @@ class Admin {
         }
 
         return rest_ensure_response($response);
+    }
+
+    /**
+     * Load all assets
+     */
+    public function admin_enqueue_scripts() {
+        wp_enqueue_style( 'bsc-api-admin', BSC_API_ASSET . '/admin/css/admin.css', '', time(), 'all' );
     }
 
 }
