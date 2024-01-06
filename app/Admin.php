@@ -15,22 +15,26 @@ class Admin {
      * Register Custom Enpoint
      */
     public function bsc_license_api_endpoint() {
-        register_rest_route('bsc/v1', '/post-data/', array(
+        register_rest_route('bsc/v1', '/verify-license/', array(
             'methods'   => 'POST',
-            'callback'  => [$this, 'handle_post_data'],
+            'callback'  => [$this, 'verify_license_callback'],
         ));
     }
 
     /**
      * API Callback function 
      */
-    public function handle_post_data( $data ) {
+    public function verify_license_callback( $request ) {
+
+        $license_key = sanitize_text_field( $request->get_param('license_key') );
+
         $response = array(
-            'status' => 'success',
-            'message' => 'Data received successfully.',
+            'license_key' => $license_key,
+            'status'    => 'success', 
+            'message'   => 'Verify License key.',
         );
     
-        return rest_ensure_response( $response );
+        return rest_ensure_response($response);
     }
 
 }
