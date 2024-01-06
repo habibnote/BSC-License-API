@@ -1,7 +1,7 @@
 <?php 
 /*
  * Plugin Name:       BSC License API
- * Plugin URI:        https://github.com/habibnote/
+ * Plugin URI:        https://github.com/habibnote/BSC-License-API
  * Description:       This plugin for button cretor with shortcode API
  * Version:           0.0.1
  * Requires at least: 5.2
