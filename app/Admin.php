@@ -10,14 +10,21 @@ class Admin {
     public function __construct() {
         add_action( 'rest_api_init', [$this, 'bsc_license_api_endpoint'] );
         add_action( 'woocommerce_new_order', [$this, 'save_license_data'], 10, 1 );
-
-        add_action( 'init', [$this, 'init'] );
+        add_action( 'woocommerce_account_dashboard', [$this, 'display_woocommerce_license_key'] );
     }
 
-    public function init() {
-        // echo md5(1);
+    /**
+     * Display License Key into woocommerce Dashboard
+     */
+    public function display_woocommerce_license_key() {
+        $current_user_id = get_current_user_id();
+
+        printf( "<div><label>Your License Key<label>: <span> %s </span></div>", get_user_meta( $current_user_id, 'bsc_license_key', true ));
     }
 
+    /**
+     * Save license key as a meta key into wordpress user meta
+     */
     public function save_license_data( $order_id ) {
 
         $order      = wc_get_order($order_id);
